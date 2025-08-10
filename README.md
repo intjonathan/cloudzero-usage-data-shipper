@@ -1,6 +1,6 @@
 # CloudZero Usage Data CSV Shipper
 
-This tool transmits usage data from CSV files in S3 to CloudZero's telemetry allocation API. It runs in Lambda Containers, reads the data from S3, converts to CZ allocation telemetry, uploads that to CZ, then moves the files in S3 to a different bucket prefix on completion.
+This tool transmits allocated usage data from CSV files in S3 to CloudZero's telemetry allocation API. It runs in Lambda Containers, reads the data from S3, converts to CZ allocation telemetry, uploads that to CZ, then moves the files in S3 to a different bucket prefix on completion.
 
 ## Requirements
 
@@ -9,8 +9,6 @@ This tool transmits usage data from CSV files in S3 to CloudZero's telemetry all
 * CSV files as input. The files should be formatted as defined in this document: [CSV_README.md](CSV_README.md)
 
 ## Usage
-
-TODO
 
 ### Command Line
 
@@ -21,13 +19,13 @@ Requirements:
 
 Install the libraries in `requirements.txt`, then run `cli.py --help` to get a list of important arguments.
 
-If a local CSV file is specified, the tool will upload the data inside to CZ as allocation telemetry. Otherwise, S3 will be used to fetch all CSV files from the specified bucket, ship the data inside to CZ as allocation telemetry, and the files in S3 moved to a `/sent/` prefix inside the bucket when complete.
+If a local CSV file is specified, the tool will upload the data inside to CZ as allocation telemetry. Otherwise, the tool will look for AWS credentials in your environment, and S3 will be used to fetch all CSV files from the specified bucket, ship the data inside to CZ as allocation telemetry, and the files in S3 moved to a `/sent/` prefix inside the bucket when complete.
 
 ### Lambda
 
 Requirements:
 
-* A lambda container function configured with this image in an ECR registry.
+* A lambda container function configured with this image built in an ECR registry.
 * Permissions on the function's role sufficient to access an S3 bucket with read/write, and read SSM parameters under the supplied prefix.
 * Environment variables on the Lambda function:
   * `SSM_PARAMETER_STORE_FOLDER_PATH`: Path to the AWS Systems Manager Parameter Store keys. See below for more.
