@@ -1,8 +1,10 @@
 # CloudZero Unit Cost CSV Format
 
-The unit cost data shipper reads gzipped CSV files from an S3 bucket and sends the data to CloudZero via their Allocation API. Users that want an asynchronous way to ship unit cost data to CloudZero, or need to separate their cost data query from the system that sends it, may find this useful.
+The unit cost data shipper reads gzipped CSV files from an S3 bucket and sends the data to CloudZero via their [Allocation API](https://docs.cloudzero.com/reference/sumallocationtelemetry). Users that want an asynchronous way to ship unit cost data to CloudZero, or need to separate their cost data query from the system that sends it, may find this useful.
 
-Files with a specified format are placed in an S3 bucket, and this code runs in a Lambda container that reads the file and ships it to CloudZero.
+Please read the Allocation API documentation (linked above) to familiarize yourself with its concepts, particularly the telemetry stream name and filter concepts.
+
+Files with this specified format may be placed in an S3 bucket, and code from this repository runs in a Lambda container to read the file and ship it to CloudZero.
 
 ## Filename `telemetry-stream`
 
